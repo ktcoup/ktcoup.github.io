@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitch chat</title>
+	<!-- CONNECT TO TWITCH CHAT -->
+	<script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
+	<style>
+		/* IMPORTS */
+		@font-face {
+			font-family: "Arcade";
+			src: url('Styles/fonts/ARCADE_I.ttf') format('truetype');
+			font-weight: normal;
+		}
+		@font-face {
+			font-family: "Commodore";
+			src: url('Styles/fonts/Commodore Rounded v1.2.ttf') format('truetype');
+			font-weight: normal;
+		}
+		@font-face {
+			font-family: "Pixel";
+			src: url('Styles/fonts/PixelSplitter-Bold.ttf') format('truetype');
+			font-weight: normal;
+		}
+		/* GENERAL SETUP */
+		#chat {
+			width: 400px;
+			height: 1040px;
+			overflow-y: auto;
+			display: flex;
+			flex-direction: column-reverse;
+			background-color: rgba(0, 0, 0, 1);
+		}
+		#chat::-webkit-scrollbar {
+			display: none;
+		}
+		#chat ul {
+			list-style-type: none;
+			list-style-position: outside;
+		}
+		#chat li {
+			background-color: rgba(0, 0, 0, 0);
+			box-sizing: border-box;
+			padding: 5px;
+			margin-bottom: 2px;
+			text-transform: uppercase;
+			font-family: "Commodore", sans-serif;
+			color: rgba(193, 251, 253, 1);
+			font-size: 1.2rem;
+		}
+		#chat blockquote {
+			text-transform: uppercase;
+			font-family: "Pixel", sans-serif;
+			color: rgba(249, 230, 240, 1);
+			font-size: 1rem;
+		}
+		/* ANIMATION */
+		@keyframes slide-in-left {
+			from {
+				transform: translateX(400px);
+				width: 0px;
+				opacity: 0;
+			}
+			to {
+				transform: translateX(0);
+				width; 100%;
+				opacity: 1;
+			}
+		}
+		#chat li:last-of-type {
+			animation-name: slide-in-left;
+			animation-duration: 0.15s;
+			animation-timing-function: ease-in;
+		}
+	</style>
+</head>
+<body>
+	 <div id="chat">
+        <ul>
+			<li>
+				
+			</li>
+        </ul>
+    </div>
+</body>
+<script>
+	var chat = document.querySelector("#chat>ul");
+
+	ComfyJS.onChat = (user, message, flags, self, extra) => {
+	
+		var newMessage = document.createElement("li");
+        var text = document.createElement("blockquote");
+		
+        newMessage.innerText = user;
+        text.innerText = message;
+
+        newMessage.append(text);
+        chat.append(newMessage);
+	}
+
+	ComfyJS.Init("l4zaria");
+</script>
+</html>
